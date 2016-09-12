@@ -1,0 +1,28 @@
+{
+  "name": "gulp-md5-fingerprint",
+  "version": "1.0.6",
+  "description": "Append md5 value to a path in order to prevent cache",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^2.0.0-rc.2",
+    "fs-extra": "^0.26.7",
+    "globby": "^4.0.0",
+    "md5ify": "^1.0.0",
+    "through2": "^2.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tongjieme/gulp-md5-fingerprint.git"
+  },
+  "keywords": [
+    "gulp",
+    "md5",
+    "fingerprint"
+  ],
+  "author": "tongjieme",
+  "license": "ISC"
+}
