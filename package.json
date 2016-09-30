@@ -1,6 +1,6 @@
 {
   "name": "gulp-md5-fingerprint",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Append md5 value to a path in order to prevent cache",
   "main": "index.js",
   "dependencies": {
