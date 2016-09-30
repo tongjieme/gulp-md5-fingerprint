@@ -10,10 +10,13 @@ var noop = function () {
 
 };
 
-var getOutput = function (data, url, cb) {
+var getOutput = function (data, url, cb, md5PrependString) {
+    if(md5PrependString === undefined) {
+        md5PrependString = '';
+    }
     // url:  the file path
     // cb:   callback
-    	// console.log(data);
+        // console.log(data);
         // ?__md5()
         var regex = /[\"\']([\w\/:\.=_\-]*)\?__md5_relative\([\'\"]?([\w\.\/]*)[\'\"]?\)[\"\']/g;
         var r = [];
@@ -30,8 +33,7 @@ var getOutput = function (data, url, cb) {
             var dir = Path.dirname(url);
             path    = Path.resolve(dir, relativePath, path);
             // path:    the file path for md5ing
-
-            data = data.replace(match, '"' + v[1] + '?' + getMd5(path) + '"');
+            data = data.replace(match, '\'' + v[1] + '?' + md5PrependString + getMd5(path) + '\'');
         });
 
 
@@ -98,17 +100,17 @@ var filesToFolder = function (paths, dest, noDir, cb) {
 
 };
 
-module.exports = function() {
-	return through.obj(function(file, encoding, callback) {
-		var content = file.contents.toString();
+module.exports = function(o) {
+    return through.obj(function(file, encoding, callback) {
+        var content = file.contents.toString();
 
-		// file.contents = new Buffer(content, "binary");
-		// console.log(content);
-		// return;
+        // file.contents = new Buffer(content, "binary");
+        // console.log(content);
+        // return;
 
-		getOutput(content, file.path, function (data) {
-		    file.contents = new Buffer(data, "utf-8");
-		    callback(null, file);
-		});
-	});
+        getOutput(content, file.path, function (data) {
+            file.contents = new Buffer(data, "utf-8");
+            callback(null, file);
+        }, o.md5PrependString);
+    });
 };
